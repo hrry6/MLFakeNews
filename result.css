@@ -1,0 +1,280 @@
+/* ===========================
+   RESULT PAGE STYLES — VERITAS
+   =========================== */
+
+.nav-right .btn-check {
+  background: transparent;
+  color: var(--text);
+  border: 1.5px solid var(--text);
+}
+
+/* ---- MAIN ---- */
+main {
+  flex: 1;
+  padding: 36px 40px 60px;
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.report-id {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+
+.page-title {
+  font-size: 36px;
+  font-weight: 800;
+}
+
+.header-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-action {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: 1.5px solid var(--border);
+  padding: 9px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  cursor: pointer;
+  color: var(--text);
+  font-family: inherit;
+  transition: border-color 0.2s;
+}
+
+.btn-action:hover {
+  border-color: #999;
+}
+
+.btn-action svg {
+  width: 14px;
+  height: 14px;
+}
+
+.divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin-bottom: 28px;
+}
+
+/* ---- CONTENT GRID ---- */
+.content-grid {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 24px;
+}
+
+/* ---- SCORE CARD ---- */
+.score-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 32px 28px;
+  margin-bottom: 24px;
+}
+
+.score-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.score-label {
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.score-desc {
+  font-size: 13px;
+  color: var(--muted);
+  max-width: 320px;
+  line-height: 1.6;
+}
+
+.hoax-badge {
+  border: 2.5px solid var(--red);
+  color: var(--red);
+  padding: 8px 18px;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transform: rotate(-1deg);
+  white-space: nowrap;
+}
+
+.hoax-badge svg {
+  width: 16px;
+  height: 16px;
+}
+
+.score-value {
+  font-size: 72px;
+  font-weight: 800;
+  color: var(--red);
+  line-height: 1;
+  margin: 24px 0 12px;
+}
+
+.score-bar-wrap {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.score-bar {
+  flex: 1;
+  height: 10px;
+  background: #ddd;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.score-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #8b0000, #c0392b);
+  border-radius: 2px;
+  width: 0;
+  transition: width 1s ease;
+}
+
+.bar-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.bar-label.authentic {
+  color: var(--muted);
+}
+
+.bar-label.critical {
+  color: var(--red);
+}
+
+/* ---- ANALYZED CONTENT ---- */
+.analyzed-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 28px;
+}
+
+.analyzed-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.analyzed-title svg {
+  width: 18px;
+  height: 18px;
+}
+
+.metric-block {
+  margin-bottom: 18px;
+}
+
+.metric-label {
+  background: var(--red-bg);
+  border-left: 3px solid var(--red);
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--red);
+  margin-bottom: 8px;
+}
+
+.metric-value {
+  font-size: 13.5px;
+  color: var(--text);
+  line-height: 1.6;
+  padding: 0 2px;
+}
+
+/* ---- METADATA SIDEBAR ---- */
+.metadata-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 24px 22px;
+  height: fit-content;
+}
+
+.metadata-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.meta-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 20px;
+}
+
+.meta-row:last-child {
+  margin-bottom: 0;
+}
+
+.meta-key {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.meta-val {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.meta-val.risk {
+  color: var(--red);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.meta-val.risk svg {
+  width: 14px;
+  height: 14px;
+}

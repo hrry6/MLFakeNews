@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veritas</title>
+    <link rel="stylesheet" href="shared.css">
+    <link rel="stylesheet" href="index.css">
+
+</head>
+<body>
+      <!-- NAV -->
+  <nav>
+    <div class="nav-logo">Veritas</div>
+    <div class="nav-center"><a href="#">Verify</a></div>
+    <div class="nav-right">
+      <button class="btn-check">Check Status</button>
+    </div>
+  </nav>
+ 
+  <!-- MAIN -->
+  <main>
+    <h1 class="hero-title">Check Information Integrity</h1>
+    <p class="hero-sub">
+      Select a method below to verify the authenticity and source of your digital content.<br>
+      Designed for clarity and precision.
+    </p>
+ 
+    <div class="cards">
+ 
+      <!-- Card 1: Paste Link -->
+      <div class="card">
+        <div class="card-icon-corner">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+          </svg>
+        </div>
+        <div class="card-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+          </svg>
+          Paste Link
+        </div>
+        <p class="card-desc">
+          Analyze news articles, blog posts,<br>
+          or social media links for source<br>
+          credibility.
+        </p>
+        <input class="link-input" id="link-input" type="url" placeholder="https://example.com/article" />
+        <a href="result.html" class="btn-analyze">Analyze Link →</a>
+      </div>
+ 
+      <!-- Card 2: Upload Document -->
+      <div class="card">
+        <div class="card-icon-corner">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+          </svg>
+        </div>
+        <div class="card-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+          </svg>
+          Upload Document
+        </div>
+        <p class="card-desc">
+          Verify PDF or Word documents for<br>
+          metadata tampering or AI generation.
+        </p>
+        <div class="upload-zone" id="upload-zone">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="12" y1="18" x2="12" y2="12"/>
+            <line x1="9" y1="15" x2="15" y2="15"/>
+          </svg>
+          <span class="select-label">Select File</span>
+          <span class="select-hint">PDF, DOCX up to 10MB</span>
+        </div>
+        <input type="file" id="file-input" accept=".pdf,.docx" />
+      </div>
+ 
+    </div>
+  </main>
+ 
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-brand">
+      <div class="brand-name">Veritas</div>
+      <div class="brand-tagline">Verity Digital Lighthouse</div>
+    </div>
+    <div class="footer-links">
+      <a href="#">Methodology</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Privacy Protocol</a>
+      <a href="#">Contact</a>
+    </div>
+    <div class="footer-copy">© 2024 Veritas Integrity Systems. All Rights Reserved.</div>
+  </footer>
+ 
+
+    
+</body>
+</html>

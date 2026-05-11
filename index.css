@@ -1,0 +1,166 @@
+/* ===========================
+   INDEX PAGE STYLES — VERITAS
+   =========================== */
+
+.nav-right .btn-check {
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  border: none;
+}
+
+/* ---- MAIN ---- */
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 80px 20px 60px;
+}
+
+.hero-title {
+  font-size: 42px;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 18px;
+  line-height: 1.15;
+}
+
+.hero-sub {
+  font-size: 15px;
+  color: var(--muted);
+  text-align: center;
+  max-width: 540px;
+  line-height: 1.7;
+  margin-bottom: 60px;
+}
+
+/* ---- CARDS ---- */
+.cards {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  width: 100%;
+  max-width: 780px;
+}
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 32px 28px 36px;
+  flex: 1;
+  min-width: 0;
+  position: relative;
+}
+
+.card-icon-corner {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  opacity: 0.18;
+}
+
+.card-icon-corner svg {
+  width: 40px;
+  height: 40px;
+}
+
+.card-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+
+.card-title svg {
+  width: 20px;
+  height: 20px;
+}
+
+.card-desc {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 28px;
+}
+
+/* ---- PASTE LINK ---- */
+.link-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1.5px solid #aaa;
+  outline: none;
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--text);
+  padding: 8px 0;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.link-input::placeholder {
+  color: #bbb;
+}
+
+.btn-analyze {
+  display: block;
+  width: 100%;
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  border: none;
+  padding: 14px 20px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  font-family: inherit;
+}
+
+.btn-analyze:hover {
+  background: #333;
+}
+
+/* ---- UPLOAD ZONE ---- */
+.upload-zone {
+  border: 1.5px dashed var(--dashed);
+  border-radius: 3px;
+  padding: 36px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.upload-zone:hover {
+  border-color: #999;
+}
+
+.upload-zone svg {
+  width: 28px;
+  height: 28px;
+  color: #aaa;
+}
+
+.upload-zone .select-label {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.upload-zone .select-hint {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+#file-input {
+  display: none;
+}
