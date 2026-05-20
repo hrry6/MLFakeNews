@@ -1,0 +1,10 @@
+services:
+  veritas-web:
+    build: .
+    container_name: veritas-flask-app
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/workspace
+    environment:
+      - FLASK_ENV=development

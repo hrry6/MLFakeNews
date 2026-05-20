@@ -4,12 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Veritas</title>
-    <link rel="stylesheet" href="shared.css">
-    <link rel="stylesheet" href="index.css">
-
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='shared.css') }}">
 </head>
 <body>
-      <!-- NAV -->
   <nav>
     <div class="nav-logo">Veritas</div>
     <div class="nav-center"><a href="#">Verify</a></div>
@@ -18,7 +16,6 @@
     </div>
   </nav>
  
-  <!-- MAIN -->
   <main>
     <h1 class="hero-title">Check Information Integrity</h1>
     <p class="hero-sub">
@@ -27,8 +24,6 @@
     </p>
  
     <div class="cards">
- 
-      <!-- Card 1: Paste Link -->
       <div class="card">
         <div class="card-icon-corner">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -43,51 +38,59 @@
           </svg>
           Paste Link
         </div>
+
+
         <p class="card-desc">
           Analyze news articles, blog posts,<br>
           or social media links for source<br>
           credibility.
         </p>
-        <input class="link-input" id="link-input" type="url" placeholder="https://example.com/article" />
-        <a href="result.html" class="btn-analyze">Analyze Link →</a>
+
+        <form action="/" method="POST" style="width: 100%; display: flex; flex-direction: column; gap: 10px;">
+          <input class="link-input" id="link-input" name="news_url" type="url" placeholder="https://example.com/article" required />
+          <button type="submit" class="btn-analyze" id="btn-submit-url" style="border: none; width: 100%; cursor: pointer; text-align: center;">Analyze Link →</button>
+        </form>
+    
       </div>
  
-      <!-- Card 2: Upload Document -->
       <div class="card">
         <div class="card-icon-corner">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
             <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+            <line x1="10" y1="9" x2="8" y2="9"/>
           </svg>
         </div>
         <div class="card-title">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
             <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
             <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+            <line x1="10" y1="9" x2="8" y2="9"/>
           </svg>
-          Upload Document
+          Analyze Text
         </div>
         <p class="card-desc">
-          Verify PDF or Word documents for<br>
-          metadata tampering or AI generation.
+          Input the title and full text of the article<br>
+          directly to check its integrity score.
         </p>
-        <div class="upload-zone" id="upload-zone">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-            <polyline points="14 2 14 8 20 8"/>
-            <line x1="12" y1="18" x2="12" y2="12"/>
-            <line x1="9" y1="15" x2="15" y2="15"/>
-          </svg>
-          <span class="select-label">Select File</span>
-          <span class="select-hint">PDF, DOCX up to 10MB</span>
-        </div>
-        <input type="file" id="file-input" accept=".pdf,.docx" />
+        
+        <form action="/" method="POST" style="width: 100%; display: flex; flex-direction: column; gap: 10px;">
+          <input class="link-input" name="news_title" type="text" placeholder="Enter article title..." required />
+          
+          <textarea class="link-input" name="news_text" rows="5" placeholder="Paste full article content here..." style="resize: vertical; height: auto; min-height: 100px;" required></textarea>
+          
+          <button type="submit" class="btn-analyze" style="border: none; width: 100%; cursor: pointer; text-align: center;">Analyze Text →</button>
+        </form>
+
       </div>
  
     </div>
   </main>
  
-  <!-- FOOTER -->
   <footer>
     <div class="footer-brand">
       <div class="brand-name">Veritas</div>
@@ -99,10 +102,7 @@
       <a href="#">Privacy Protocol</a>
       <a href="#">Contact</a>
     </div>
-    <div class="footer-copy">© 2024 Veritas Integrity Systems. All Rights Reserved.</div>
+    <div class="footer-copy">© 2026 Veritas Integrity Systems. All Rights Reserved.</div>
   </footer>
- 
-
-    
 </body>
 </html>
