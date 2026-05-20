@@ -1,3 +1,4 @@
 models/bert_fake_news/model.safetensors filter=lfs diff=lfs merge=lfs -text
+data/raw/*.csv filter=lfs diff=lfs merge=lfs -text
 data/raw/True.csv filter=lfs diff=lfs merge=lfs -text
 data/raw/Fake.csv filter=lfs diff=lfs merge=lfs -text
