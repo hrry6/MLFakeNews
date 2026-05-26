@@ -1,6 +1,6 @@
 # Veritas — Machine Learning Fake News Detection System
 
-Veritas adalah platform deteksi integritas informasi digital (*fake news* / hoax) berbasis web yang menggunakan model NLP *state-of-the-art* **BERT (`bert-base-cased`)**. Aplikasi ini dirancang dengan arsitektur bersih (*monorepo*) yang memisahkan ekosistem *Machine Learning pipeline* dengan aplikasi web Flask.
+Veritas adalah platform deteksi integritas informasi digital (*fake news* / hoax) berbasis web yang menggunakan model NLP *state-of-the-art* **BERT (`bert-base-cased`)** dan **Logistic Regression**. Aplikasi ini dirancang dengan arsitektur bersih (*monorepo*) yang memisahkan ekosistem *Machine Learning pipeline* dengan aplikasi web Flask.
 
 ## Fitur Utama
 - **Analyze Text**: Deteksi langsung dengan memasukkan judul dan isi artikel berita secara manual.
@@ -18,23 +18,26 @@ README.md generated successfully.
 
 ```text
 MLFakeNewsTemplate/
-├── app/                  # Aplikasi Web & User Interface (Flask)
-│   ├── app.py            # Main server Flask
-│   ├── templates/        # File HTML (index.html, result.html)
-│   └── static/           # Asset statis (CSS, JS)
-├── ml/                   # Machine Learning Pipeline
-│   ├── preprocess.py     # Logika pembersihan teks teks (BERT-friendly)
-│   ├── prepare_data.py   # Penggabungan data, deduplikasi, & sampling
-│   ├── train.py          # Script finetuning BERT dengan PyTorch & HuggingFace Trainer
-│   └── predict.py        # Script CLI untuk testing model secara lokal
-├── data/                 # Penyimpanan Data Dataset (ISOT)
-│   ├── raw/              # True.csv dan Fake.csv asli
-│   └── processed/        # train_cleaned.csv hasil preprocessing
-├── models/               # Tempat penyimpanan akhir model hasil training
-│   └── bert_fake_news/   # Bobot model & konfigurasi tokenizer (.safetensors)
-├── Dockerfile            # Blueprint containerisasi aplikasi
-├── docker-compose.yml    # Orkestrasi container dan volume mapping
-└── requirements.txt      # Daftar dependencies Python
+├── app/                     # Aplikasi Web & User Interface (Flask)
+│   ├── app.py               # Main server Flask
+│   ├── templates/           # File HTML (index.html, result.html)
+│   └── static/              # Asset statis (CSS, JS)
+├── ml/                      # Machine Learning Pipeline
+│   ├── preprocess.py        # Logika pembersihan teks teks (BERT-friendly)
+│   ├── prepare_data.py      # Penggabungan data, deduplikasi, & sampling
+│   ├── train_bert.py        # Script finetuning BERT dengan PyTorch & HuggingFace Trainer
+│   ├── train_logreg.py      # Script finetuning Logistic Regression dengan sklearn
+│   └── predict_bert.py      # Script untuk testing model BERT 
+│   └── predict_logreg.py    # Script CLI untuk testing model Logistic Regression
+├── data/                    # Penyimpanan Data Dataset (ISOT)
+│   ├── raw/                 # True.csv dan Fake.csv asli
+│   └── processed/           # train_cleaned.csv hasil preprocessing
+├── models/                  # Tempat penyimpanan akhir model hasil training
+│   └── bert_fake_news/      # Bobot model & konfigurasi tokenizer (.safetensors)
+│   └── logistic_regression/ # Bobot model & konfigurasi dalam format.pkl 
+├── Dockerfile               # Blueprint containerisasi aplikasi
+├── docker-compose.yml       # Orkestrasi container dan volume mapping
+└── requirements.txt         # Daftar dependencies Python
 
 ```
 
@@ -44,14 +47,14 @@ MLFakeNewsTemplate/
 
 ### 1. Spesifikasi Model
 
-* **Arsitektur**: `bert-base-cased` (HuggingFace Transformers).
-* **Alasan**: Berbeda dengan *uncased*, versi *cased* mempertahankan huruf kapital yang sangat krusial dalam mendeteksi gaya bahasa *clickbait* atau hoax. Tanda baca dan angka juga tidak dihapus agar mekanis *Attention* BERT memahami struktur sintaksis kalimat secara utuh.
+* **Arsitektur**: `bert-base-cased` (HuggingFace Transformers) dan `logistic regression`.
+* **Alasan**: Berbeda dengan *uncased*, versi *cased* mempertahankan huruf kapital yang sangat krusial dalam mendeteksi gaya bahasa *clickbait* atau hoax. Tanda baca dan angka juga tidak dihapus agar mekanis *Attention* BERT memahami struktur sintaksis kalimat secara utuh. Sedangkan Logistic Regression menawarkan pendakatan yang lebih cepat dan transparan dibanding BERT. Alasan kami menggunakan kedua model ini agar user dapat mengambil keputusan mengenai suatu sentimen dengan lebih yakin.
 
 ### 2. Pipeline Pengolahan Data & Training
 
 1. **Pembersihan Data Leakage (`ml/preprocess.py`)**: Menghapus pola agensi berita kaku seperti `(Reuters) - ` secara *case-insensitive* untuk mencegah model mengalami *overfitting* atau menghafal *watermark* sumber teks asli.
 2. **Deduplikasi (`ml/prepare_data.py`)**: Menghapus data duplikat dan baris kosong setelah pembersihan teks untuk mencegah kebocoran informasi (*data leakage*) antara data training dan validasi.
-3. **Finetuning (`ml/train.py`)**: Melakukan training menggunakan *HuggingFace Trainer API* dengan kriteria optimasi berbasis *F1-Score*. Model terbaik di akhir epoch otomatis disimpan ke direktori `models/bert_fake_news/`.
+3. **Finetuning (`ml/train_*.py`)**: Melakukan training menggunakan dengan kriteria optimasi berbasis *F1-Score*. Model terbaik di akhir epoch otomatis disimpan ke direktori `models/*`.
 
 ---
 
@@ -72,10 +75,10 @@ docker-compose up --build
 
 ### 2. Akses Aplikasi
 
-Setelah log container menampilkan pesan sukses (`Running on http://0.0.0.0:5000`), buka browser Anda dan akses:
+Setelah log container menampilkan pesan sukses (`Running on http://0.0.0.0:8080`), buka browser Anda dan akses:
 
 ```text
-http://localhost:5000
+http://localhost:8080
 
 ```
 
