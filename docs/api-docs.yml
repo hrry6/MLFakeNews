@@ -1,0 +1,75 @@
+opencollection: 1.0.0
+info:
+  name: MLFakeNews
+config:
+  proxy:
+    inherit: true
+    config:
+      protocol: http
+      hostname: ''
+      port: ''
+      auth:
+        username: ''
+        password: ''
+      bypassProxy: ''
+items:
+  - info:
+      name: Get Main Page
+      type: http
+      seq: 1
+    http:
+      method: GET
+      url: http://localhost:8080
+      auth: inherit
+    settings:
+      encodeUrl: true
+      timeout: 0
+      followRedirects: true
+      maxRedirects: 5
+  - info:
+      name: Analyze Web Article
+      type: http
+      seq: 3
+    http:
+      method: POST
+      url: http://localhost:8080
+      body:
+        type: json
+        data: |-
+          {
+            "news_url": "https://www.bbc.com/news/articles/c1w22y1n74do"
+          }
+      auth: inherit
+    settings:
+      encodeUrl: true
+      timeout: 0
+      followRedirects: true
+      maxRedirects: 5
+  - info:
+      name: Analyze Text
+      type: http
+      seq: 5
+    http:
+      method: POST
+      url: http://localhost:8080
+      body:
+        type: json
+        data: |-
+          {
+            "news_title": "Internet starts coming back in Iran after months-long blackout",
+            "news_text": "Internet access has started to be restored in Iran after being cut off almost three months ago, the country's first vice-president has said.The first step toward free and regulated access to cyberspace has been taken, Mohammad Reza Aref wrote on X on Tuesday.Internet monitoring groups Netblocks and Kentik reported partial restoration around 13:00 GMT, though the latter warned most networks were still down.The Iranian government cut internet access following the launch of US and Israeli attacks on 28 February. Officials suggested the aim was to prevent surveillance, espionage and cyber-attacks. It is one of the longest-running national internet shutdowns ever recorded worldwide.A content creator from Tehran told the BBC that he had been able to connect to the internet using his home WiFi on Tuesday.The main point is, some of my income will come back, he said.Netblocks, a global internet monitor, said it was unclear whether the internet restoration would be sustained.From past digital blackouts in Iran, weve seen that the restoration process can take some hours and isnt as streamlined as the shutdown procedure, the groups research director Isik Mater earlier told BBC Verify, cautioning it had on occasion taken weeks to reach some regions."
+          }
+      auth: inherit
+    settings:
+      encodeUrl: true
+      timeout: 0
+      followRedirects: true
+      maxRedirects: 5
+bundled: true
+extensions:
+  bruno:
+    ignore:
+      - node_modules
+      - .git
+    exportedAt: '2026-05-26T15:50:27.126Z'
+    exportedUsing: Bruno
