@@ -1,6 +1,7 @@
 import os
 import sys
 import requests
+import joblib
 from bs4 import BeautifulSoup
 from datetime import datetime
 
@@ -16,34 +17,45 @@ root_dir = os.path.abspath(os.path.join(base_dir, '..'))
 if root_dir not in sys.path:
     sys.path.append(root_dir)
 
-# Import fungsi pembersih teks
 try:
     from ml.preprocess import clean_text
 except ImportError:
     print("Gagal mengimport clean_text dari ml.preprocess.")
     def clean_text(text): return text 
 
-# Path ke folder model yang sudah di-training
-model_dir = os.path.join(root_dir, 'models', 'bert_fake_news')
+# Path ke folder model BERT
+bert_dir = os.path.join(root_dir, 'models', 'bert_fake_news')
+
+# Path ke folder model Logistic Regression
+logreg_dir = os.path.join(root_dir, 'models', 'logistic_regression')
+logreg_model_path = os.path.join(logreg_dir, 'logreg_model.pkl')
+vectorizer_path = os.path.join(logreg_dir, 'tfidf_vectorizer.pkl')
 
 # INISIALISASI FLASK & LOAD MODEL
 app = Flask(__name__)
 
-print(" Loading model BERT")
+print("Loading model BERT...")
 try:
-    tokenizer = BertTokenizer.from_pretrained(model_dir)
-    model = BertForSequenceClassification.from_pretrained(model_dir)
-    model.eval() # Matikan mode training, fokus untuk inferensi (prediksi)
-    print("✅ Model berhasil diload!")
+    tokenizer = BertTokenizer.from_pretrained(bert_dir)
+    bert_model = BertForSequenceClassification.from_pretrained(bert_dir)
+    bert_model.eval()
+    print("Model BERT berhasil diload!")
 except Exception as e:
-    print(f"❌ Peringatan: Model gagal diload: {e}")
-    tokenizer, model = None, None
+    print(f"Peringatan: Model BERT gagal diload: {e}")
+    tokenizer, bert_model = None, None
 
+print("Loading model Logistic Regression...")
+try:
+    logreg_model = joblib.load(logreg_model_path)
+    vectorizer = joblib.load(vectorizer_path)
+    print("Model Logistic Regression berhasil diload!")
+except Exception as e:
+    print(f"Peringatan: Model Logistic Regression gagal diload: {e}")
+    logreg_model, vectorizer = None, None
 
 # ROUTING & LOGIKA UTAMA
 @app.route("/", methods=["GET", "POST"])
 def index():
-    # Jika user mengirimkan data via form (Klik Analyze)
     if request.method == "POST":
         
         source_format = ""
@@ -76,18 +88,12 @@ def index():
             news_text = request.form.get("news_text", "")
     
         # PREPROCESSING & PREDIKSI MODEL
-    
-        # Teks mentah untuk ditampilkan di UI agar tetap enak dibaca
         raw_input_text = f"{news_title}. {news_text}"
-        
-        # Teks bersih untuk dimakan oleh Model BERT (sesuai standar saat training)
         cleaned_input_text = clean_text(raw_input_text)
-        
-        # Ambil tanggal hari ini untuk metadata hasil
         current_date = datetime.now().strftime("%b %d, %Y")
 
-        if model and tokenizer:
-            # Ubah teks menjadi token/angka yang dipahami PyTorch
+        # PREDIKSI MENGGUNAKAN BERT
+        if bert_model and tokenizer:
             inputs = tokenizer(
                 cleaned_input_text, 
                 truncation=True, 
@@ -97,32 +103,49 @@ def index():
             )
             
             with torch.no_grad():
-                outputs = model(**inputs)
+                outputs = bert_model(**inputs)
                 probs = F.softmax(outputs.logits, dim=1)
                 
                 fake_prob = probs[0][0].item() * 100
                 
                 if fake_prob >= 50:
-                    label = "Hoax"
-                    score = fake_prob
+                    bert_label = "Hoax"
+                    bert_score = fake_prob
                 else:
-                    label = "Authentic"
-                    score = probs[0][1].item() * 100 
+                    bert_label = "Authentic"
+                    bert_score = probs[0][1].item() * 100 
         else:
-            score = 0.0
-            label = "Model Not Loaded"
+            bert_score = 0.0
+            bert_label = "BERT Not Loaded"
+
+        if logreg_model and vectorizer:
+            teks_vector = vectorizer.transform([cleaned_input_text])
+            logreg_pred = logreg_model.predict(teks_vector)[0]
+            logreg_probs = logreg_model.predict_proba(teks_vector)[0]
+
+            if logreg_pred == 1:
+                logreg_label = "Authentic"
+                logreg_score = logreg_probs[1] * 100
+            else:
+                logreg_label = "Hoax"
+                logreg_score = logreg_probs[0] * 100
+        else:
+            logreg_score = 0.0
+            logreg_label = "LogReg Not Loaded"
             
+        # KIRIM DATA KE HALAMAN HASIL
         return render_template(
             "result.html", 
-            score=round(score, 2), 
-            label=label,
+            bert_score=round(bert_score, 2),
+            bert_label=bert_label,
+            logreg_score=round(logreg_score, 2),
+            logreg_label=logreg_label,
             news_title=news_title,
             news_text=news_text,         
             processed_date=current_date,
             source_format=source_format  
         )
 
-    # Render halaman awal jika request adalah GET (akses web pertama kali)
     return render_template("index.html")
 
 if __name__ == "__main__":
