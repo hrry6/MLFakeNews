@@ -53,7 +53,7 @@ def prepare_data():
         print(f"Menghapus {removed_count} baris duplikat/kosong.")
 
     # Acak Data & Batasi Sampel 5000 baris
-    df = df.sample(frac=1, random_state=42).reset_index(drop=True).head(5000)
+    df = df.sample(frac=1, random_state=42).reset_index(drop=True)
 
     # Simpan Data Processed
     output_file = os.path.join(processed_path, 'train_cleaned.csv')
