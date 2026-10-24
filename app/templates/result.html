@@ -41,51 +41,6 @@
     <div class="content-grid">
       <!-- LEFT COLUMN -->
       <div>
-        <!-- Bert Score Card -->
-        <div class="score-card">
-          <div class="score-header">
-            <div>
-              <div class="score-label">BERT Model: 
-                {% if bert_label == 'Authentic' %}Authenticity Score{% else %}Discrepancy Score{% endif %}
-              </div>
-              <div class="score-desc">
-                  BERT is a sophisticated Deep Learning model that reads text from both sides simultaneously, enabling it to understand the deeper meaning of words based on the overall context of the sentence.
-              </div>
-            </div>
-            
-            <div class="hoax-badge" style="{% if bert_label == 'Authentic' %}background-color: #e8f5e9; color: #2e7d32; border: 1px solid #c8e6c9;{% else %}background-color: #fbe9e7; color: #c0392b; border: 1px solid #ffccbc;{% endif %}">
-              {% if bert_label == 'Hoax' %}
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                  <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
-                  <line x1="12" y1="9" x2="12" y2="13"/>
-                  <line x1="12" y1="17" x2="12.01" y2="17"/>
-                </svg>
-              {% else %}
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                </svg>
-              {% endif %}
-              {{ bert_label | upper }}
-            </div>
-
-          </div>
-          
-          <div class="score-value" style="color: {% if bert_label == 'Authentic' %}#2e7d32{% else %}#c0392b{% endif %} !important;">
-            {{ bert_score }}%
-          </div>
-          
-          <div class="score-bar-wrap">
-            <span class="bar-label">0%</span>
-            <div class="score-bar">
-              <div class="score-bar-fill" id="score-fill" style="width: {{ bert_score }}%; background-color: {% if bert_label == 'Authentic' %}#2e7d32{% else %}#c0392b{% endif %};"></div>
-            </div>
-            <span class="bar-label" style="color: {% if bert_label == 'Authentic' %}#2e7d32{% else %}#c0392b{% endif %}; font-weight: 700;">
-              {% if bert_label == 'Authentic' %}Highly Authentic (100%){% else %}Critical (100%){% endif %}
-            </span>
-          </div>
-        </div>
-
         <!-- Logistic Linear Score Card -->
         <div class="score-card">
           <div class="score-header">
@@ -151,33 +106,6 @@
             <div class="metric-label">Content snippet:</div>
             <!-- Menampilkan 200 karakter pertama dari teks berita -->
             <div class="metric-value">{{ news_text[:200] }}...</div>
-          </div>
-        </div>
-
-        <!-- Analyzed Content BERT -->
-        <div class="analyzed-card">
-          <div class="analyzed-title">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="2" y="3" width="20" height="14" rx="2"/>
-              <line x1="8" y1="21" x2="16" y2="21"/>
-              <line x1="12" y1="17" x2="12" y2="21"/>
-            </svg>
-            BERT Model Performance Score
-          </div>
-
-          <div class="metric-block">
-            <div class="metric-label">Precision: 100%</div>
-            <div class="metric-value">How accurate the model's positive predictions are.</div>
-          </div>
-
-          <div class="metric-block">
-            <div class="metric-label">Recall: 100%</div>
-            <div class="metric-value">The model's ability to find all the positive cases.</div>
-          </div>
-
-          <div class="metric-block">
-            <div class="metric-label">F1 Score: 100%</div>
-            <div class="metric-value">The harmonic balance between Precision and Recall.</div>
           </div>
         </div>
 
